@@ -1,0 +1,29 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "who-is"
+version = "0.0.1"
+description = "Strutured domain whois requests"
+authors = [
+    { name = "ctrl-felix", email = "dev@ctrl-felix.de" },
+]
+readme = "README.md"
+keywords = ["whois", "domain-whois", "domain-lookup"]
+license = {text = "BSD 3-Clause License"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "validators>=0.34.0",
+]
+dynamic = []
+
+[project.urls]
+"Homepage" = "https://github.com/ctrl-Felix/who_is/"
+"Bug Tracker" = "https://github.com/ctrl-Felix/who_is/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["who_is"]

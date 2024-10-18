@@ -10,7 +10,10 @@ def whois(domain: str, whois_server: str = "whois.iana.org", recursive: bool = T
         return single_whois(domain, whois_server)
 
 
-def recursive_whois(domain: str, whois_server: str = "whois.iana.org", checked_servers: list = []) -> WhoisResponse:
+def recursive_whois(domain: str, whois_server: str = "whois.iana.org", checked_servers: list = None) -> WhoisResponse:
+    if not checked_servers:
+        checked_servers = []
+
     s = WhoisSocket(whois_server)
     r = s.query(domain)
     next_server = next_whois_server(whois_dict=r.json(), exclude=checked_servers)

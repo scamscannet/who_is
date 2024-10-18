@@ -2,7 +2,7 @@ from who_is.net.nominatim import query_unformatted_address
 
 from who_is.models.generics.whois_data_object import WhoisDataObject, WhoisDataField
 from who_is.utils.extractors.detect_redacted import detect_redacted
-
+from who_is.exceptions.geocoding import GeocodingFailure
 
 class Address(WhoisDataObject):
     street: str
@@ -30,7 +30,7 @@ class Address(WhoisDataObject):
             value = whois_dict[key]
 
             if isinstance(value, list):
-                address_components.append(*value)
+                address_components.extend(value)
             else:
                 address_components.append(value)
 
@@ -53,8 +53,10 @@ class Address(WhoisDataObject):
 
         address_string = " , ".join(picked_address_components)
 
-        formatted_address = query_unformatted_address(address_string)
-
+        try:
+            formatted_address = query_unformatted_address(address_string)
+        except GeocodingFailure:
+            return
         for k, v in formatted_address.items():
             if v is not None:
                 setattr(self, k, v)

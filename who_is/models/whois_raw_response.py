@@ -49,4 +49,4 @@ class WhoisRawResponse:
         return self._kv
 
     def format(self) -> WhoisResponse:
-        return WhoisResponse(whois_dict=self.json())
+        return WhoisResponse(whois_dict=self.json(), raw=self._raw)

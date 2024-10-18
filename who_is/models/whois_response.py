@@ -5,12 +5,14 @@ from who_is.models.data.registrar import Registrar
 
 
 class WhoisResponse:
+    raw: str
     registrar: Registrar
     dates: DatesWrapper
     contact: ContactWrapper
     general: General
 
-    def __init__(self, whois_dict: dict):
+    def __init__(self, whois_dict: dict, raw: str):
+        self.raw = raw
         self.registrar = Registrar(whois_dict=whois_dict)
         self.dates = DatesWrapper(whois_dict=whois_dict)
         self.contact = ContactWrapper(whois_dict=whois_dict)

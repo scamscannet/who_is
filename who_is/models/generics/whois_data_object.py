@@ -53,8 +53,14 @@ class WhoisDataObject:
                         setattr(self, key, getattr(self, key) + whois_dict[match])
                     else:
                         getattr(self, key).append(whois_dict[match])
+                elif parsing_data.data_type == str:
+                    if isinstance(whois_dict[match], list):
+                        setattr(self, key, whois_dict[match][0])
+                    else:
+                        setattr(self, key, whois_dict[match])
+
                 else:
-                    setattr(self, key, whois_dict[match])
+                    raise NotImplementedError("The datatype is not supported. This should not happen.")
 
 
                 value_added = True

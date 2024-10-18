@@ -3,8 +3,8 @@ from who_is.models.generics.whois_data_object import WhoisDataObject, WhoisDataF
 
 
 class ContactWrapper(WhoisDataObject):
-    _types: list = []
-    _contacts: dict = {}
+    _types: list
+    _contacts: dict
     _search_types: dict = {
         "admin": ["admin", "administrative"],
         "tech": ["tech", "technological"],
@@ -12,10 +12,16 @@ class ContactWrapper(WhoisDataObject):
     }
 
     def __init__(self, whois_dict: dict):
+        self._types = []
+        self._contacts = {}
+
         super().__init__(whois_dict)
         sub_dicts = {
             k: {} for k in self._search_types
         }
+
+        # Try to find keys following <type>_><datakey> pattern
+        match_found = False
         for key, value in whois_dict.items():
             first_key = key.split("_")[0]
             for contact_type, search_keys in self._search_types.items():

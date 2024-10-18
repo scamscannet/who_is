@@ -1,0 +1,3 @@
+
+class GeocodingFailure(Exception):
+    pass

@@ -7,7 +7,6 @@ class Registrar(WhoisDataObject):
     iana_id: str
     address: Address
     url: str
-    phone: str
     abuse_email: str
     abuse_phone: str
     whois: str
@@ -16,7 +15,6 @@ class Registrar(WhoisDataObject):
                'name': WhoisDataField(matching_keys=['registrar']),
                'address': WhoisDataField(matching_keys=[], data_type=Address),
                'url': WhoisDataField(matching_keys=["registrar_url"]),
-               'phone': WhoisDataField(matching_keys=[]),
                'abuse_phone': WhoisDataField(matching_keys=["abuse_phone", "abuse_contact_phone"]),
                'abuse_email': WhoisDataField(matching_keys=["abuse_email", "abuse_contact_email"]),
                'whois': WhoisDataField(matching_keys=["registrar_whois"])

@@ -20,7 +20,7 @@ def query_unformatted_address(query: str) -> dict:
     response_data = response.json()
 
     if not response_data:
-        raise GeocodingFailure()
+        raise GeocodingFailure(f"Error while geocoding {query}")
     
     picked_address = response_data[0]["address"]
 

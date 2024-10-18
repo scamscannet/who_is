@@ -1,3 +1,6 @@
+import json
+
 from who_is import whois
 
-print(whois("google.com"))
+googlecom = whois("interbloc.org")
+print(json.dumps(googlecom.json(), indent=4))

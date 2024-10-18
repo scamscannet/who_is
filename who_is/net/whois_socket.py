@@ -1,12 +1,15 @@
 import socket
 
+from who_is.exceptions.whois import WhoisServerConnectionError
 from who_is.models.whois_raw_response import WhoisRawResponse
 
 
 class WhoisSocket:
     sock: socket.socket
+    _server: str
 
     def __init__(self, server: str):
+        self._server = server
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.connect((server, 43))
 
@@ -25,4 +28,4 @@ class WhoisSocket:
         query_data = domain + "\r\n"
         x = self.sock.send(query_data.encode())
         data = self._receive()
-        return WhoisRawResponse(data)
+        return WhoisRawResponse(data, whois_server=self._server)

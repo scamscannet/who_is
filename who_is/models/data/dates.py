@@ -34,8 +34,14 @@ class DatesWrapper(WhoisDataObject):
 
         parsed_dates = {
             'creation_date': self._parse_date(self.raw.created) if self.raw.created else None,
-            'update_date': self._parse_date(self.raw.created) if self.raw.updated else None,
-            'expiration_date': self._parse_date(self.raw.created) if self.raw.expiration else None,
+            'update_date': self._parse_date(self.raw.updated) if self.raw.updated else None,
+            'expiration_date': self._parse_date(self.raw.expiration) if self.raw.expiration else None,
         }
 
         self.formatted = Dates(whois_dict=parsed_dates)
+
+    def json(self) -> dict:
+        return {
+            'raw': self.raw.json(),
+            'formatted': self.formatted.json()
+        }
